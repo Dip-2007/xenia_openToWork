@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
   /* Sky Glass Palette */
   --bg-main: #eef4fb;
@@ -20,7 +22,9 @@
   --rounded-xl: 24px;
   --rounded-full: 9999px;
 
-  --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-hand: 'Caveat', cursive;
 
   --transition-fast: 0.2s ease;
 }
@@ -39,6 +43,15 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   /* Add a subtle background texture or noise if needed, for now gradient is fine */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
 
 /* Glassmorphism Utilities */
@@ -93,6 +106,7 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 119, 181, 0.2);
   transition: all 0.2s;
+  font-family: var(--font-main);
 }
 
 .btn-primary:hover {
@@ -157,4 +171,300 @@ a:hover {
   opacity: 0.2;
   border-radius: 50%;
   z-index: -1;
+}
+
+/* --- New Component Styles --- */
+
+/* Hero Section */
+.hero-section {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  text-align: center;
+}
+
+.hero-badge {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.scroll-indicator {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--text-secondary), transparent);
+}
+
+/* Trending Buzzwords */
+.buzzword-panel {
+  padding: 0;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.buzzword-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.buzzword-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.buzzword-list {
+  padding: 12px 0;
+}
+
+.buzzword-item {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.buzzword-item:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.buzzword-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buzzword-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  font-family: var(--font-main);
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  padding: 0;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 50%, #bfdbfe 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+}
+
+.welcome-content {
+  padding: 32px 40px;
+  position: relative;
+  z-index: 1;
+  max-width: 60%;
+}
+
+.welcome-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.welcome-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+  font-family: var(--font-heading);
+}
+
+/* Experience */
+.experience-card {
+  padding: 24px;
+  margin-bottom: 1rem;
+}
+
+.experience-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  /* generic border color */
+  display: flex;
+  gap: 12px;
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Glitch Effect */
+.glitch-text {
+  position: relative;
+  font-family: var(--font-hand);
+  color: #ef4444;
+  /* Red for the 'broken' feel */
+  animation: glitch-skew 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(38px, 9999px, 81px, 0);
+  }
+
+  20% {
+    clip: rect(6px, 9999px, 14px, 0);
+  }
+
+  40% {
+    clip: rect(51px, 9999px, 20px, 0);
+  }
+
+  60% {
+    clip: rect(2px, 9999px, 84px, 0);
+  }
+
+  80% {
+    clip: rect(54px, 9999px, 25px, 0);
+  }
+
+  100% {
+    clip: rect(23px, 9999px, 66px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(27px, 9999px, 16px, 0);
+  }
+
+  20% {
+    clip: rect(61px, 9999px, 6px, 0);
+  }
+
+  40% {
+    clip: rect(32px, 9999px, 73px, 0);
+  }
+
+  60% {
+    clip: rect(74px, 9999px, 13px, 0);
+  }
+
+  80% {
+    clip: rect(10px, 9999px, 83px, 0);
+  }
+
+  100% {
+    clip: rect(2px, 9999px, 45px, 0);
+  }
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(0deg);
+  }
+
+  10% {
+    transform: skew(-5deg);
+  }
+
+  20% {
+    transform: skew(5deg);
+  }
+
+  30% {
+    transform: skew(0deg);
+  }
+
+  40% {
+    transform: skew(-2deg);
+  }
+
+  50% {
+    transform: skew(2deg);
+  }
+
+  100% {
+    transform: skew(0deg);
+  }
+}
+
+/* Developer Mode Easter Egg */
+.debug-mode * {
+  outline: 1px solid #00ff00 !important;
+  background: rgba(0, 255, 0, 0.05) !important;
+}
+
+.debug-mode .glass-panel,
+.debug-mode .glass-card {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  border: 1px solid #00ff00 !important;
 }

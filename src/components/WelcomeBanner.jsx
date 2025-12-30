@@ -2,23 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Cpu, Zap, Code, Database, Sparkles } from 'lucide-react';
 
 const WelcomeBanner = () => {
     return (
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-panel"
-            style={{
-                padding: '0',
-                marginBottom: '24px',
-                background: 'linear-gradient(135deg, #dbeafe 0%, #eff6ff 50%, #bfdbfe 100%)',
-                position: 'relative',
-                overflow: 'hidden',
-                minHeight: '220px',
-                display: 'flex',
-                alignItems: 'center'
-            }}
+            className="glass-panel welcome-banner"
         >
             {/* Background Decorations */}
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'hidden', zIndex: 0 }}>
@@ -26,11 +17,11 @@ const WelcomeBanner = () => {
                 <div style={{ position: 'absolute', top: '10%', right: '-10%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, rgba(147, 197, 253, 0) 70%)', filter: 'blur(40px)' }}></div>
             </div>
 
-            <div style={{ padding: '32px 40px', position: 'relative', zIndex: 1, maxWidth: '60%' }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', color: 'var(--text-secondary)' }}>
+            <div className="welcome-content">
+                <div className="welcome-label">
                     Xenia 2026 - The Sargastic Tech Fest
                 </div>
-                <h1 style={{ fontSize: '1.8rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '20px', color: '#1e3a8a' }}>
+                <h1 className="welcome-title">
                     SYNERGIZE YOUR EXHAUSTION,<br/>XENIA 2026 IS HERE.
                 </h1>
                 <button className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.95rem' }}>
@@ -38,29 +29,53 @@ const WelcomeBanner = () => {
                 </button>
             </div>
 
-            {/* Right side illustration placeholder - mimicking the laptop/tech setup */}
-            <div style={{ position: 'absolute', right: '40px', bottom: '20px', height: '80%', width: '35%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-                <div style={{ 
-                    width: '200px', 
-                    height: '140px', 
-                    background: 'rgba(255,255,255,0.6)', 
-                    backdropFilter: 'blur(5px)',
-                    border: '1px solid rgba(255,255,255,0.8)', 
-                    borderRadius: '12px',
-                    position: 'relative',
-                    transform: 'rotate(-5deg) translateY(10px)',
-                    boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <div style={{ fontSize: '4rem', color: '#3b82f6', fontWeight: 900, opacity: 0.8 }}>X</div>
+            {/* Right side illustration - Floating Holographic Tech Cluster */}
+            <div style={{ position: 'absolute', right: '40px', bottom: '20px', height: '100%', width: '35%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <motion.div 
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ position: 'relative', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                    {/* Central Glowing Core */}
+                    <div style={{ 
+                        width: '120px', height: '120px', 
+                        background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0) 70%)', 
+                        borderRadius: '50%', 
+                        filter: 'blur(10px)',
+                        position: 'absolute'
+                    }} />
                     
-                    {/* Floating elements */}
-                    <div style={{ position: 'absolute', top: '-30px', right: '-20px', width: '60px', height: '60px', background: '#e0f2fe', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0284c7" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    <div className="glass-card" style={{ 
+                        width: '80px', height: '80px', 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        borderRadius: '24px',
+                        background: 'rgba(255,255,255,0.8)',
+                        zIndex: 2,
+                        boxShadow: '0 10px 30px rgba(59,130,246,0.3)'
+                    }}>
+                        <Cpu size={40} color="#3b82f6" />
                     </div>
-                </div>
+
+                    {/* Orbiting Elements */}
+                    <motion.div 
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        style={{ position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                            <Zap size={20} color="#f59e0b" />
+                        </div>
+                        <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translate(-50%, 50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                            <Database size={20} color="#10b981" />
+                        </div>
+                        <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                            <Code size={20} color="#8b5cf6" />
+                        </div>
+                         <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translate(50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                            <Sparkles size={20} color="#ec4899" />
+                        </div>
+                    </motion.div>
+                </motion.div>
             </div>
         </motion.div>
     );

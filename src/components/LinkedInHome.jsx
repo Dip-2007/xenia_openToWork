@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navigation from './Navigation';
+import BentoNavigation from './BentoNavigation';
+import Footer from './Footer';
 import ProfileLayout from './ProfileLayout';
 import ProfileCard from './ProfileCard';
 import WelcomeBanner from './WelcomeBanner';
@@ -10,18 +11,14 @@ import TrendingBuzzwords from './TrendingBuzzwords';
 import { CorporateLadderWidget, TyporateWidget, PremiumWidget } from './Widgets';
 import Squares from './Squares';
 import EventsShowcase from './EventsShowcase';
-// import Network from './Network';
 
 export default function LinkedInHome() {
-    const [activeTab, setActiveTab] = useState('home'); // Default to 'home'
+    const [activeTab, setActiveTab] = useState('home'); 
 
     const handleTabChange = (tab) => {
         console.log('Switching to tab:', tab);
         setActiveTab(tab);
     };
-
-    // Debugging
-    console.log('Current Active Tab:', activeTab);
 
     const posts = [
         {
@@ -42,12 +39,8 @@ export default function LinkedInHome() {
         }
     ];
 
-
-
     // Helper function to decide what to render
     const renderContent = () => {
-
-
         switch (activeTab) {
             case 'events':
                 return <EventsShowcase />;
@@ -105,22 +98,14 @@ export default function LinkedInHome() {
                         <aside className="animate-float" style={{ animationDelay: '1s' }}>
                             <TrendingBuzzwords />
                             <PremiumWidget />
-                            <div style={{ textAlign: 'center', marginTop: '16px', padding: '12px' }}>
-                                <p className="text-muted" style={{ fontSize: '0.7rem' }}>
-                                    XENIA © 2026
-                                </p>
-                            </div>
                         </aside>
                     </ProfileLayout>
                 );
         }
     };
 
-  
-
-
     return (
-        <main style={{ paddingTop: '80px', minHeight: '100vh', position: 'relative' }}>
+        <main style={{ paddingTop: '80px', minHeight: '100vh', position: 'relative', display: 'flex', flexDirection: 'column' }}>
             {/* Background Animation */}
             <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
                 <Squares 
@@ -135,11 +120,13 @@ export default function LinkedInHome() {
             </div>
             
             {/* Navigation Bar */}
-          <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
-
+            <BentoNavigation activeTab={activeTab} onTabChange={handleTabChange} />
             
             {/* Render selected view */}
             {renderContent()}
+
+            {/* Footer */}
+            <Footer />
         </main>
     );
 }
