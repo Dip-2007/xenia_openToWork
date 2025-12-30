@@ -1,11 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ParticleCard } from './MagicBento';
 import { Home, Calendar, Briefcase, Bell, Search, Menu } from 'lucide-react';
 import TrueFocus from './TrueFocus';
 
 const BentoNavigation = ({ activeTab, onTabChange }) => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+             // Hide when scrolled down more than 50px
+            setIsVisible(window.scrollY < 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const navItems = [
         { id: 'home', label: 'Home', icon: Home, color: '14, 165, 233' }, // Sky Blue
         { id: 'events', label: 'Events', icon: Calendar, color: '168, 85, 247' }, // Purple
@@ -23,7 +34,9 @@ const BentoNavigation = ({ activeTab, onTabChange }) => {
             padding: '10px 20px',
             background: 'rgba(255, 255, 255, 0.85)',
             backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid rgba(255,255,255,0.5)'
+            borderBottom: '1px solid rgba(255,255,255,0.5)',
+            transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+            transition: 'transform 0.3s ease-in-out',
         }}>
             <div className="section-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: '1280px' }}>
                 

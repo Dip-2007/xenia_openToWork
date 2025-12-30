@@ -3,6 +3,7 @@
 import React from 'react';
 import ParticleCard from './MagicBento';
 
+
 export const CorporateLadderWidget = () => {
     return (
         <ParticleCard 

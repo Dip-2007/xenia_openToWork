@@ -2,8 +2,20 @@
 
 import { motion } from 'framer-motion';
 import TrueFocus from './TrueFocus';
+import { useState, useEffect } from 'react';
 
 const Navigation = ({ activeTab = 'home', onTabChange }) => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Hide when scrolled down more than 50px
+            setIsVisible(window.scrollY < 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     const navItems = [
         { id: 'home', label: 'Home', icon: 'M23 9L12 1 1 9h2v14h7v-7h4v7h7V9z' },
         { id: 'events', label: 'Events', icon: 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z' },
@@ -26,7 +38,9 @@ const Navigation = ({ activeTab = 'home', onTabChange }) => {
             borderLeft: 'none',
             borderRight: 'none',
             borderBottom: '1px solid var(--glass-border)',
-            background: 'rgba(255, 255, 255, 0.85)'
+            background: 'rgba(255, 255, 255, 0.85)',
+            transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+            transition: 'transform 0.3s ease-in-out',
         }}>
             <div className="section-container" style={{ display: 'flex', alignItems: 'center', height: '100%', gap: '1rem', width: '100%', justifyContent: 'space-between', maxWidth: '1280px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
