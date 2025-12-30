@@ -3,10 +3,11 @@ const ProfileLayout = ({ children }) => {
         <div className="section-container" style={{
             paddingTop: '24px',
             display: 'grid',
-            gridTemplateColumns: '260px 1fr 300px',
+            gridTemplateColumns: '250px minmax(0, 1fr) 300px',
             gap: '24px',
             alignItems: 'start',
-            maxWidth: '1280px'
+            maxWidth: '1280px',
+            margin: '0 auto'
         }}>
             {children}
             <style jsx>{`

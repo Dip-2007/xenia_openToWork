@@ -2,81 +2,147 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Zap, Code, Database, Sparkles } from 'lucide-react';
+import { Cpu, Zap, Code, Database, Sparkles, Layers } from 'lucide-react';
+import ParticleCard from './MagicBento';
 
 const WelcomeBanner = () => {
     return (
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="glass-panel welcome-banner"
+        <ParticleCard 
+            className="welcome-banner"
+            style={{ 
+                minHeight: '180px', // Ultra-sleek rectangular height
+                marginBottom: '24px',
+                background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
+                border: '1px solid rgba(255, 255, 255, 0.8)',
+                boxShadow: '0 8px 30px rgba(59, 130, 246, 0.1)',
+                borderRadius: '20px', // Slightly less rounded for shorter height
+                overflow: 'hidden',
+                position: 'relative'
+            }}
+            glowColor="59, 130, 246"
+            particleCount={8}
         >
-            {/* Background Decorations */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'hidden', zIndex: 0 }}>
-                <div style={{ position: 'absolute', top: '-50%', left: '-10%', width: '600px', height: '600px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)', filter: 'blur(40px)' }}></div>
-                <div style={{ position: 'absolute', top: '10%', right: '-10%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, rgba(147, 197, 253, 0) 70%)', filter: 'blur(40px)' }}></div>
-            </div>
-
-            <div className="welcome-content">
-                <div className="welcome-label">
-                    Xenia 2026 - The Sargastic Tech Fest
-                </div>
-                <h1 className="welcome-title">
-                    SYNERGIZE YOUR EXHAUSTION,<br/>XENIA 2026 IS HERE.
-                </h1>
-                <button className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.95rem' }}>
-                    Learn more
-                </button>
-            </div>
-
-            {/* Right side illustration - Floating Holographic Tech Cluster */}
-            <div style={{ position: 'absolute', right: '40px', bottom: '20px', height: '100%', width: '35%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ position: 'relative', width: '200px', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                >
-                    {/* Central Glowing Core */}
+            <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between', 
+                height: '100%', 
+                width: '100%',
+                padding: '24px 40px' // Reduced padding
+            }}>
+                {/* Left Content */}
+                <div className="welcome-content" style={{ zIndex: 10, flex: 1, paddingRight: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div style={{ 
-                        width: '120px', height: '120px', 
-                        background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0) 70%)', 
-                        borderRadius: '50%', 
-                        filter: 'blur(10px)',
-                        position: 'absolute'
-                    }} />
-                    
-                    <div className="glass-card" style={{ 
-                        width: '80px', height: '80px', 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        borderRadius: '24px',
-                        background: 'rgba(255,255,255,0.8)',
-                        zIndex: 2,
-                        boxShadow: '0 10px 30px rgba(59,130,246,0.3)'
+                        fontSize: '0.75rem', 
+                        fontWeight: 700, 
+                        color: '#64748b', 
+                        textTransform: 'uppercase', 
+                        letterSpacing: '0.05em',
+                        marginBottom: '8px' 
                     }}>
-                        <Cpu size={40} color="#3b82f6" />
+                        Xenia 2026 - The Sargastic Tech Fest
+                    </div>
+                    <h1 style={{ 
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', // Slightly smaller font
+                        fontWeight: 800, 
+                        color: '#1e3a8a',
+                        lineHeight: 1.1,
+                        marginBottom: '16px'
+                    }}>
+                        SYNERGIZE YOUR <br/>
+                        EXHAUSTION,<br/>
+                        <span style={{ color: '#2563eb' }}>XENIA 2026 IS HERE.</span>
+                    </h1>
+                    <button style={{ 
+                        background: '#0284c7', 
+                        color: 'white', 
+                        padding: '10px 28px', 
+                        borderRadius: '50px', 
+                        border: 'none', 
+                        fontWeight: 600, 
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 15px rgba(2, 132, 199, 0.3)',
+                        transition: 'transform 0.2s',
+                        width: 'fit-content'
+                    }}>
+                        Learn more
+                    </button>
+                </div>
+
+                {/* Right Illustration - Circular Orbit (Scaled Down) */}
+                <div style={{ 
+                    width: '180px', 
+                    height: '180px', 
+                    flexShrink: 0,
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10
+                }}>
+                    {/* Central CPU Card */}
+                    <div style={{ 
+                        width: '80px', height: '80px',
+                        background: 'white',
+                        borderRadius: '20px',
+                        boxShadow: '0 15px 30px rgba(59, 130, 246, 0.15)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        zIndex: 20,
+                        position: 'relative'
+                    }}>
+                            <Cpu size={36} color="#3b82f6" strokeWidth={1.5} />
                     </div>
 
-                    {/* Orbiting Elements */}
+                    {/* Orbit Container */}
                     <motion.div 
+                        style={{ position: 'absolute', width: '100%', height: '100%' }}
                         animate={{ rotate: 360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        style={{ position: 'absolute', width: '100%', height: '100%' }}
                     >
-                        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                            <Zap size={20} color="#f59e0b" />
-                        </div>
-                        <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translate(-50%, 50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                            <Database size={20} color="#10b981" />
-                        </div>
-                        <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translate(-50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                            <Code size={20} color="#8b5cf6" />
-                        </div>
-                         <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translate(50%, -50%)', background: '#fff', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                            <Sparkles size={20} color="#ec4899" />
-                        </div>
+                        {/* Satellites positioned on the circle (Radius 70px) */}
+                        <OrbitItem icon={Zap} color="#f59e0b" angle={0} radius={70} />
+                        <OrbitItem icon={Sparkles} color="#ec4899" angle={72} radius={70} />
+                        <OrbitItem icon={Database} color="#10b981" angle={144} radius={70} />
+                        <OrbitItem icon={Code} color="#8b5cf6" angle={216} radius={70} />
+                        <OrbitItem icon={Layers} color="#6366f1" angle={288} radius={70} />
                     </motion.div>
-                </motion.div>
+                </div>
             </div>
+        </ParticleCard>
+    );
+};
+
+// Orbit Item that counter-rotates to stay upright
+const OrbitItem = ({ icon: Icon, color, angle, radius }) => {
+    // Convert angle to position
+    const rad = (angle * Math.PI) / 180;
+    const x = Math.cos(rad) * radius;
+    const y = Math.sin(rad) * radius;
+
+    return (
+        <motion.div
+            style={{
+                position: 'absolute',
+                top: '50%', left: '50%',
+                x, y,
+                width: '36px',
+                height: '36px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'white',
+                borderRadius: '10px',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.06)',
+                zIndex: 15,
+                marginTop: '-18px', // Exact center offset (half of 36)
+                marginLeft: '-18px' // Exact center offset (half of 36)
+            }}
+            animate={{ rotate: -360 }} // Counter-rotate to stay upright
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        >
+            <Icon size={18} color={color} />
         </motion.div>
     );
 };

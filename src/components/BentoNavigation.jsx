@@ -41,13 +41,16 @@ const BentoNavigation = ({ activeTab, onTabChange }) => {
             <div className="section-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: '1280px' }}>
                 
                 {/* Logo Area */}
-                <div style={{ flexShrink: 0, width: '200px' }}>
+                <div style={{ flexShrink: 0, width: '220px' }}> {/* Increased width for flexibility */}
                      <TrueFocus 
-                        words={[{ text: 'XENIA 26', style: { fontSize: '1.2rem', fontWeight: '900', color: '#0077b5' } }]}
-                        manualMode={false}
-                        blurAmount={3}
-                        borderColor="transparent"
-                        glowColor="rgba(0, 119, 181, 0.2)"
+                        sentences={[
+                            { text: 'PCSB PRESENTS', className: 'text-xs font-semibold tracking-[0.2em] text-cyan-500' },
+                            { text: 'XENIA 26', className: 'text-2xl font-black tracking-tight text-sky-600' }
+                        ]}
+                        manualMode={false} 
+                        blurAmount={4}
+                        animationDuration={0.6}
+                        pauseBetweenAnimations={2.5} // Hold longer to read
                     />
                 </div>
 
@@ -64,8 +67,9 @@ const BentoNavigation = ({ activeTab, onTabChange }) => {
                                     style={{ 
                                         height: '100%', 
                                         borderRadius: '12px',
-                                        background: isActive ? `rgba(${item.color}, 0.1)` : 'white',
-                                        border: isActive ? `1px solid rgba(${item.color}, 0.5)` : '1px solid rgba(0,0,0,0.05)',
+                                        background: isActive ? `rgba(${item.color}, 0.15)` : 'rgba(255, 255, 255, 0.8)',
+                                        border: isActive ? `1px solid rgba(${item.color}, 0.6)` : '1px solid rgba(255, 255, 255, 0.5)',
+                                        boxShadow: isActive ? `0 4px 12px rgba(${item.color}, 0.15)` : 'none',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -73,9 +77,9 @@ const BentoNavigation = ({ activeTab, onTabChange }) => {
                                     }}
                                     clickEffect={true}
                                 >
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-                                        <Icon size={18} color={`rgb(${item.color})`} />
-                                        <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748b' }}>{item.label}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                                        <Icon size={20} color={`rgb(${item.color})`} strokeWidth={isActive ? 2.5 : 2} />
+                                        <span style={{ fontSize: '0.75rem', fontWeight: isActive ? 700 : 600, color: '#64748b' }}>{item.label}</span>
                                     </div>
                                 </ParticleCard>
                             </div>

@@ -1,18 +1,23 @@
 'use client';
 
 import React from 'react';
+import ParticleCard from './MagicBento';
 
 const Post = ({ author, time, content, likes, comments, onClick }) => {
     return (
-        <div 
+        <ParticleCard 
             className="glass-panel" 
             style={{ 
                 padding: '20px', 
                 marginBottom: '16px',
                 cursor: onClick ? 'pointer' : 'default',
                 transition: 'transform 0.2s',
-                border: onClick ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid rgba(255, 255, 255, 0.4)'
+                border: onClick ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid rgba(255, 255, 255, 0.4)',
+                background: 'rgba(255, 255, 255, 0.85)'
             }}
+            glowColor="0, 119, 181"
+            particleCount={3}
+            clickEffect={!!onClick}
             onClick={onClick}
             onMouseEnter={e => { if (onClick) e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.8)' }}
             onMouseLeave={e => { if (onClick) e.currentTarget.style.borderColor = onClick ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid rgba(255, 255, 255, 0.4)' }}
@@ -33,7 +38,7 @@ const Post = ({ author, time, content, likes, comments, onClick }) => {
                 </div>
             </div>
             
-            <p style={{ fontSize: '0.9rem', marginBottom: '16px', lineHeight: 1.5, color: '#334155' }}>
+            <p style={{ fontSize: '0.9rem', marginBottom: '20px', lineHeight: 1.6, color: '#334155' }}>
                 {content}
             </p>
 
@@ -83,7 +88,7 @@ const Post = ({ author, time, content, likes, comments, onClick }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </ParticleCard>
     );
 };
 

@@ -110,12 +110,12 @@ export default function LinkedInHome() {
             <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
                 <Squares 
                     direction="diagonal"
-                    speed={0.2}
-                    borderColor="#cbd5e1"
-                    squareSize={20}
-                    hoverFillColor="#bae6fd"
-                    gradientColorStart="rgba(224, 242, 254, 0.4)"
-                    gradientColorEnd="#e0f2fe"
+                    speed={0.1}
+                    borderColor="rgba(148, 163, 184, 0.25)"
+                    squareSize={24}
+                    hoverFillColor="#bfdbfe"
+                    gradientColorStart="transparent" /* Let body gradient show through */
+                    gradientColorEnd="transparent"
                 />
             </div>
             
