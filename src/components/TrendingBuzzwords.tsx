@@ -6,9 +6,9 @@ import { Server, AlertTriangle, Users, Globe, MessageSquare, Folder, Monitor, Tr
 import ParticleCard from './MagicBento';
 
 const TrendingBuzzwords = () => {
-    const sceneRef = useRef(null);
-    const engineRef = useRef(null);
-    const runnerRef = useRef(null);
+    const sceneRef = useRef<HTMLDivElement>(null);
+    const engineRef = useRef<Matter.Engine | null>(null);
+    const runnerRef = useRef<Matter.Runner | null>(null);
 
     const buzzwords = [
         { term: 'Synergy', icon: Users, color: '#3b82f6' },
@@ -22,9 +22,9 @@ const TrendingBuzzwords = () => {
         { term: 'Low Hanging Fruit', icon: AlertTriangle, color: '#eab308' }
     ];
 
-    const [bodies, setBodies] = useState([]);
-    const containerRef = useRef(null);
-    const elementsRef = useRef({});
+    const [bodies, setBodies] = useState<any[]>([]);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const elementsRef = useRef<{ [key: number]: HTMLDivElement | null }>({});
 
     useEffect(() => {
         const Engine = Matter.Engine,
@@ -37,17 +37,18 @@ const TrendingBuzzwords = () => {
         const engine = Engine.create();
         const world = engine.world;
         engineRef.current = engine;
-        
+
         const container = containerRef.current;
+        if (!container) return;
         const width = container.clientWidth;
         const height = 340; // Increased height
 
         // Walls
         const wallThick = 60;
-        const ground = Bodies.rectangle(width / 2, height + wallThick/2 - 10, width, wallThick, { isStatic: true, render: { visible: false } });
-        const left = Bodies.rectangle(0 - wallThick/2, height / 2, wallThick, height * 5, { isStatic: true, render: { visible: false } });
-        const right = Bodies.rectangle(width + wallThick/2, height / 2, wallThick, height * 5, { isStatic: true, render: { visible: false } });
-        
+        const ground = Bodies.rectangle(width / 2, height + wallThick / 2 - 10, width, wallThick, { isStatic: true, render: { visible: false } });
+        const left = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 5, { isStatic: true, render: { visible: false } });
+        const right = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 5, { isStatic: true, render: { visible: false } });
+
         Composite.add(world, [ground, left, right]);
 
         // Add Words
@@ -55,9 +56,9 @@ const TrendingBuzzwords = () => {
             const x = Math.random() * (width - 100) + 50;
             const y = -Math.random() * 500 - 50;
             // Approximate width based on char count
-            const wordWidth = word.term.length * 9 + 45; 
+            const wordWidth = word.term.length * 9 + 45;
             const wordHeight = 40;
-            
+
             const body = Bodies.rectangle(x, y, wordWidth, wordHeight, {
                 restitution: 0.6,
                 friction: 0.1,
@@ -80,7 +81,7 @@ const TrendingBuzzwords = () => {
                 render: { visible: false }
             }
         });
-        
+
         // Remove scroll interference
         mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
         mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
@@ -100,8 +101,8 @@ const TrendingBuzzwords = () => {
                 if (el) {
                     const { x, y } = item.body.position;
                     const angle = item.body.angle;
-                    el.style.transform = `translate(${x - item.width/2}px, ${y - item.height/2}px) rotate(${angle}rad)`;
-                    el.style.opacity = 1; 
+                    el.style.transform = `translate(${x - item.width / 2}px, ${y - item.height / 2}px) rotate(${angle}rad)`;
+                    el.style.opacity = '1';
                 }
             });
             animationFrameId = requestAnimationFrame(update);
@@ -116,12 +117,12 @@ const TrendingBuzzwords = () => {
     }, []);
 
     return (
-        <ParticleCard 
-            className="buzzword-panel" 
-            style={{ 
-                overflow: 'hidden', 
-                height: 'auto', 
-                display: 'flex', 
+        <ParticleCard
+            className="buzzword-panel"
+            style={{
+                overflow: 'hidden',
+                height: 'auto',
+                display: 'flex',
                 flexDirection: 'column',
                 background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', // Sky Glass Gradient
                 border: '1px solid rgba(255, 255, 255, 0.8)',
@@ -131,7 +132,7 @@ const TrendingBuzzwords = () => {
             particleCount={5}
         >
             <div className="buzzword-header" style={{
-                zIndex: 10, 
+                zIndex: 10,
                 padding: '20px 24px',
                 borderBottom: '1px solid rgba(255,255,255,0.6)',
                 display: 'flex',
@@ -148,14 +149,14 @@ const TrendingBuzzwords = () => {
                 </div>
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748b', background: 'rgba(255,255,255,0.5)', padding: '4px 10px', borderRadius: '20px' }}>Drag Us</span>
             </div>
-            
-            <div 
-                ref={containerRef} 
+
+            <div
+                ref={containerRef}
                 className="physics-container"
-                style={{ 
-                    position: 'relative', 
-                    height: '340px', 
-                    width: '100%', 
+                style={{
+                    position: 'relative',
+                    height: '340px',
+                    width: '100%',
                     cursor: 'grab',
                     touchAction: 'none' // Prevent scrolling while dragging
                 }}
@@ -163,33 +164,33 @@ const TrendingBuzzwords = () => {
                 {bodies.map((item) => {
                     const Icon = item.icon;
                     return (
-                        <div 
+                        <div
                             key={item.id}
-                            ref={el => elementsRef.current[item.id] = el}
-                                style={{
-                                    position: 'absolute',
-                                    left: 0,
-                                    top: 0,
-                                    width: `${item.width}px`,
-                                    height: `${item.height}px`,
-                                    borderRadius: '12px',
-                                    background: 'rgba(255, 255, 255, 0.95)',
-                                    boxShadow: '0 4px 12px rgba(30, 58, 138, 0.1)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '8px',
-                                    userSelect: 'none',
-                                    padding: '0 12px',
-                                    opacity: 0,
-                                    border: '1px solid rgba(255, 255, 255, 1)',
-                                    pointerEvents: 'none', // Allow clicks to pass through to Matter.js container
-                                    color: '#334155'
-                                }}
-                            >
-                                <div style={{ color: item.color, display: 'flex' }}><Icon size={16} /></div>
-                                <span style={{ fontSize: '0.8rem', fontWeight: 700, whiteSpace: 'nowrap' }}>{item.term}</span>
-                            </div>
+                            ref={(el) => { if (el) elementsRef.current[item.id] = el; }}
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                width: `${item.width}px`,
+                                height: `${item.height}px`,
+                                borderRadius: '12px',
+                                background: 'rgba(255, 255, 255, 0.95)',
+                                boxShadow: '0 4px 12px rgba(30, 58, 138, 0.1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                userSelect: 'none',
+                                padding: '0 12px',
+                                opacity: 0,
+                                border: '1px solid rgba(255, 255, 255, 1)',
+                                pointerEvents: 'none', // Allow clicks to pass through to Matter.js container
+                                color: '#334155'
+                            }}
+                        >
+                            <div style={{ color: item.color, display: 'flex' }}><Icon size={16} /></div>
+                            <span style={{ fontSize: '0.8rem', fontWeight: 700, whiteSpace: 'nowrap' }}>{item.term}</span>
+                        </div>
                     );
                 })}
             </div>

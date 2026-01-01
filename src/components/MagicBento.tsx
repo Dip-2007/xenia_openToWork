@@ -1,16 +1,40 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-export const ParticleCard = ({ 
-    children, 
-    className = "", 
-    style = {}, 
-    glowColor = "0, 119, 181", 
+interface ParticleCardProps extends HTMLMotionProps<"div"> {
+    children: React.ReactNode;
+    className?: string;
+    style?: React.CSSProperties;
+    glowColor?: string;
+    particleCount?: number;
+    clickEffect?: boolean;
+}
+
+export const ParticleCard: React.FC<ParticleCardProps> = ({
+    children,
+    className = "",
+    style = {},
+    glowColor = "0, 119, 181",
     particleCount = 5,
-    clickEffect = false 
+    clickEffect = false,
+    ...rest
 }) => {
+    const [mounted, setMounted] = React.useState(false);
+    const [particles, setParticles] = React.useState([]);
+
+    React.useEffect(() => {
+        setMounted(true);
+        const newParticles = Array.from({ length: particleCount }).map(() => ({
+            size: Math.random() * 4 + 2 + 'px',
+            top: Math.random() * 100 + '%',
+            left: Math.random() * 100 + '%',
+            duration: 3 + Math.random() * 2,
+            delay: Math.random() * 2
+        }));
+        setParticles(newParticles);
+    }, [particleCount]);
     return (
         <motion.div
             className={`relative overflow-hidden ${className}`}
@@ -18,29 +42,30 @@ export const ParticleCard = ({
                 ...style,
                 isolation: 'isolate'
             }}
+            {...rest}
             whileHover={{ scale: 1.02 }}
             whileTap={clickEffect ? { scale: 0.98 } : {}}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
         >
             {/* Glow Background */}
-            <div 
+            <div
                 className="absolute inset-0 z-[-1] opacity-20"
                 style={{
                     background: `radial-gradient(circle at 50% 50%, rgba(${glowColor}, 0.5), transparent 70%)`
                 }}
             />
 
-            {/* Particles */}
-            {Array.from({ length: particleCount }).map((_, i) => (
+            {/* Particles - Client Side Only to resolve Hydration Error */}
+            {mounted && particles.map((p, i) => (
                 <motion.div
                     key={i}
                     className="absolute rounded-full pointer-events-none"
                     style={{
-                        width: Math.random() * 4 + 2 + 'px',
-                        height: Math.random() * 4 + 2 + 'px',
+                        width: p.size,
+                        height: p.size,
                         background: `rgb(${glowColor})`,
-                        top: Math.random() * 100 + '%',
-                        left: Math.random() * 100 + '%',
+                        top: p.top,
+                        left: p.left,
                         zIndex: 0
                     }}
                     animate={{
@@ -49,10 +74,10 @@ export const ParticleCard = ({
                         scale: [1, 1.5, 1]
                     }}
                     transition={{
-                        duration: 3 + Math.random() * 2,
+                        duration: p.duration,
                         repeat: Infinity,
                         ease: "easeInOut",
-                        delay: Math.random() * 2
+                        delay: p.delay
                     }}
                 />
             ))}

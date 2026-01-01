@@ -1,6 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 
-const Squares = ({
+interface SquaresProps {
+  direction?: 'right' | 'left' | 'up' | 'down' | 'diagonal';
+  speed?: number;
+  borderColor?: string;
+  squareSize?: number;
+  hoverFillColor?: string;
+  gradientColorStart?: string;
+  gradientColorEnd?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const Squares: React.FC<SquaresProps> = ({
   direction = 'right',
   speed = 1,
   borderColor = '#999',
@@ -11,12 +23,13 @@ const Squares = ({
   className = '',
   style = {}
 }) => {
-  const canvasRef = useRef(null);
-  const requestRef = useRef(null);
-  const numSquaresX = useRef(0);
-  const numSquaresY = useRef(0);
-  const gridOffset = useRef({ x: 0, y: 0 });
-  const hoveredSquareRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const requestRef = useRef<number | null>(null);
+  const numSquaresX = useRef<number>(0);
+  const numSquaresY = useRef<number>(0);
+  const gridOffset = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  // Use a Map to track decaying hover states: "x,y" -> intensity (0.0 to 1.0)
+  const hoverMap = useRef<Map<string, number>>(new Map());
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,7 +51,7 @@ const Squares = ({
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw gradient background first
+      // Draw gradient background
       const gradient = ctx.createRadialGradient(
         canvas.width / 2,
         canvas.height / 2,
@@ -56,18 +69,38 @@ const Squares = ({
       const startX = Math.floor(gridOffset.current.x / squareSize) * squareSize;
       const startY = Math.floor(gridOffset.current.y / squareSize) * squareSize;
 
+      // 1. Decay Hover Map
+      hoverMap.current.forEach((intensity, key) => {
+        const newIntensity = intensity - 0.05; // Decay rate
+        if (newIntensity <= 0) {
+          hoverMap.current.delete(key);
+        } else {
+          hoverMap.current.set(key, newIntensity);
+        }
+      });
+
+      // 2. Draw Grid & Highlights
       for (let x = startX; x < canvas.width + squareSize; x += squareSize) {
         for (let y = startY; y < canvas.height + squareSize; y += squareSize) {
           const squareX = x - (gridOffset.current.x % squareSize);
           const squareY = y - (gridOffset.current.y % squareSize);
 
-          if (
-            hoveredSquareRef.current &&
-            Math.floor((x - startX) / squareSize) === hoveredSquareRef.current.x &&
-            Math.floor((y - startY) / squareSize) === hoveredSquareRef.current.y
-          ) {
+          // Identity in grid coordinates
+          const gridX = Math.floor((x - startX) / squareSize);
+          const gridY = Math.floor((y - startY) / squareSize);
+          const key = `${gridX},${gridY}`;
+
+          // Draw highlight if active in map
+          if (hoverMap.current.has(key)) {
+            const intensity = hoverMap.current.get(key);
+            // Parse base color to add alpha
+            // Assuming hoverFillColor is rgba, we replace the alpha?
+            // User provided "rgba(0, 119, 181, 0.1)"
+            // Let's simple use global alpha for fill
+            ctx.globalAlpha = intensity;
             ctx.fillStyle = hoverFillColor;
             ctx.fillRect(squareX, squareY, squareSize, squareSize);
+            ctx.globalAlpha = 1.0;
           }
 
           ctx.strokeStyle = borderColor;
@@ -114,28 +147,22 @@ const Squares = ({
       const hoveredSquareX = Math.floor((mouseX + gridOffset.current.x - startX) / squareSize);
       const hoveredSquareY = Math.floor((mouseY + gridOffset.current.y - startY) / squareSize);
 
-      if (
-        !hoveredSquareRef.current ||
-        hoveredSquareRef.current.x !== hoveredSquareX ||
-        hoveredSquareRef.current.y !== hoveredSquareY
-      ) {
-        hoveredSquareRef.current = { x: hoveredSquareX, y: hoveredSquareY };
-      }
+      const key = `${hoveredSquareX},${hoveredSquareY}`;
+      // Set to full intensity
+      hoverMap.current.set(key, 1.0);
     };
 
-    const handleMouseLeave = () => {
-      hoveredSquareRef.current = null;
-    };
+    /* Legacy leave handler removed */
 
     canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    /* canvas.addEventListener('mouseleave', handleMouseLeave); */
     requestRef.current = requestAnimationFrame(updateAnimation);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
       canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      /* canvas.removeEventListener('mouseleave', handleMouseLeave); */
     };
   }, [direction, speed, borderColor, hoverFillColor, squareSize, gradientColorStart, gradientColorEnd]);
 

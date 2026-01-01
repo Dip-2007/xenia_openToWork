@@ -3,12 +3,21 @@
 import React from 'react';
 import ParticleCard from './MagicBento';
 
-const Post = ({ author, time, content, likes, comments, onClick }) => {
+interface PostProps {
+    author: string;
+    time: string;
+    content: string;
+    likes: number;
+    comments: number;
+    onClick?: () => void;
+}
+
+const Post: React.FC<PostProps> = ({ author, time, content, likes, comments, onClick }) => {
     return (
-        <ParticleCard 
-            className="glass-panel" 
-            style={{ 
-                padding: '20px', 
+        <ParticleCard
+            className="glass-panel"
+            style={{
+                padding: '20px',
                 marginBottom: '16px',
                 cursor: onClick ? 'pointer' : 'default',
                 transition: 'transform 0.2s',
@@ -37,23 +46,23 @@ const Post = ({ author, time, content, likes, comments, onClick }) => {
                     <button style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: '#94a3b8' }}>•••</button>
                 </div>
             </div>
-            
+
             <p style={{ fontSize: '0.9rem', marginBottom: '20px', lineHeight: 1.6, color: '#334155' }}>
                 {content}
             </p>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #e2e8f0', paddingTop: '12px' }}>
                 <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                   {/* Reactions */}
-                   <div style={{ display: 'flex' }}>
-                       <span style={{ width: '18px', height: '18px', background: '#3b82f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'white', border: '1px solid white' }}>👍</span>
-                       <span style={{ width: '18px', height: '18px', background: '#ef4444', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'white', border: '1px solid white', marginLeft: '-6px' }}>❤️</span>
-                   </div>
-                   <span style={{ fontSize: '0.75rem', color: '#64748b', marginLeft: '4px' }}>{likes}</span>
+                    {/* Reactions */}
+                    <div style={{ display: 'flex' }}>
+                        <span style={{ width: '18px', height: '18px', background: '#3b82f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'white', border: '1px solid white' }}>👍</span>
+                        <span style={{ width: '18px', height: '18px', background: '#ef4444', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'white', border: '1px solid white', marginLeft: '-6px' }}>❤️</span>
+                    </div>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', marginLeft: '4px' }}>{likes}</span>
                 </div>
-                
+
                 {onClick && (
-                    <button 
+                    <button
                         onClick={(e) => {
                             e.stopPropagation();
                             onClick();
@@ -72,17 +81,17 @@ const Post = ({ author, time, content, likes, comments, onClick }) => {
                         View Details
                     </button>
                 )}
-                
+
                 {!onClick && (
                     <div style={{ display: 'flex', gap: '24px' }}>
                         {['Comment', 'Copy', 'Share'].map((action) => (
-                            <button key={action} style={{ 
-                                background: 'none', border: 'none', 
+                            <button key={action} style={{
+                                background: 'none', border: 'none',
                                 color: '#475569', fontSize: '0.85rem', fontWeight: 500,
-                                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' 
+                                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
                             }}>
-                                 <span style={{ fontSize: '1.1rem' }}>{action === 'Comment' ? '💬' : action === 'Copy' ? '🔗' : '↩️'}</span>
-                                 {action}
+                                <span style={{ fontSize: '1.1rem' }}>{action === 'Comment' ? '💬' : action === 'Copy' ? '🔗' : '↩️'}</span>
+                                {action}
                             </button>
                         ))}
                     </div>

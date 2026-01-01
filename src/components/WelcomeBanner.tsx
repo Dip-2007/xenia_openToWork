@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Zap, Code, Database, Sparkles, Layers } from 'lucide-react';
 import ParticleCard from './MagicBento';
+import TrueFocus from './TrueFocus';
 
 const WelcomeBanner = () => {
     return (
@@ -42,18 +43,22 @@ const WelcomeBanner = () => {
                     }}>
                         Xenia 2026 - The Sargastic Tech Fest
                     </div>
-                    <h1 style={{ 
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', // Slightly smaller font
-                        fontWeight: 800, 
-                        color: '#1e3a8a',
-                        lineHeight: 1.1,
-                        marginBottom: '16px'
-                    }}>
-                        SYNERGIZE YOUR <br/>
-                        EXHAUSTION,<br/>
-                        <span style={{ color: '#2563eb' }}>XENIA 2026 IS HERE.</span>
-                    </h1>
+                    <div style={{ height: '100px', display: 'flex', alignItems: 'center' }}>
+                        <TrueFocus 
+                            sentences={[
+                                { text: "Synergizing Paradigms...", className: "text-green-600" },
+                                { text: "Disrupting Status Quo...", className: "text-emerald-500" },
+                                { text: "Touching Base...", className: "text-green-700" },
+                                { text: "Xenia 2026 Is Here.", className: "text-lime-600" }
+                            ]}
+                            manualMode={false}
+                            blurAmount={4}
+                            borderColor="green"
+                            glowColor="rgba(0, 255, 0, 0.5)"
+                            animationDuration={0.6}
+                            pauseBetweenAnimations={1.0}
+                        />
+                    </div>
                     <button style={{ 
                         background: '#0284c7', 
                         color: 'white', 
@@ -120,6 +125,11 @@ const OrbitItem = ({ icon: Icon, color, angle, radius }) => {
     const rad = (angle * Math.PI) / 180;
     const x = Math.cos(rad) * radius;
     const y = Math.sin(rad) * radius;
+
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => setMounted(true), []);
+
+    if (!mounted) return null;
 
     return (
         <motion.div

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
-const EventHorizon = () => {
+const EventHorizon: React.FC = () => {
     const controls = useAnimation();
 
     useEffect(() => {
@@ -28,13 +28,13 @@ const EventHorizon = () => {
                     className="absolute inset-[50px] rounded-full border-[1px] border-purple-400"
                     style={{ borderStyle: 'dotted' }}
                 />
-                 <motion.div
+                <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                     className="absolute inset-[100px] rounded-full border-[1px] border-cyan-400 opacity-50"
                 />
             </div>
-            
+
             {/* Event Particles */}
             <div className="absolute inset-0">
                 {Array.from({ length: 20 }).map((_, i) => (
