@@ -1,0 +1,18 @@
+▲ Next.js 16.1.1 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.6s
+  Running TypeScript ...
+Failed to compile.
+
+./src/components/TrendingBuzzwords.tsx:86:63
+Type error: Property 'mousewheel' does not exist on type 'Mouse'.
+
+[0m [90m 84 |[39m
+ [90m 85 |[39m         [90m// Remove scroll interference[39m
+[31m[1m>[22m[39m[90m 86 |[39m         mouse[33m.[39melement[33m.[39mremoveEventListener([32m"mousewheel"[39m[33m,[39m mouse[33m.[39mmousewheel)[33m;[39m
+ [90m    |[39m                                                               [31m[1m^[22m[39m
+ [90m 87 |[39m         mouse[33m.[39melement[33m.[39mremoveEventListener([32m"DOMMouseScroll"[39m[33m,[39m mouse[33m.[39mmousewheel)[33m;[39m
+ [90m 88 |[39m
+ [90m 89 |[39m         [33mComposite[39m[33m.[39madd(world[33m,[39m mouseConstraint)[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null
