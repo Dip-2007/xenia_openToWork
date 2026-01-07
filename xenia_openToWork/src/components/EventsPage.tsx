@@ -67,7 +67,7 @@ const EventsPage: React.FC = () => {
   );
 
   return (
-    <div className="w-full h-[calc(100vh-80px)] font-sans relative overflow-hidden selection:bg-blue-200 flex flex-col bg-gradient-to-b from-blue-50 to-slate-900">
+    <div className="w-full h-[calc(100vh-80px)] font-sans relative overflow-hidden selection:bg-blue-200 flex flex-col bg-transparent">
 
       {/* Background - Beams (Now provided globally by LinkedInHome) */}
 

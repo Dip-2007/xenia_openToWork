@@ -8,6 +8,7 @@ import EventsPage from './EventsPage';
 import CSIHeader from './CSIHeader';
 import { BeamsBackground } from './BeamsBackground';
 
+
 interface PostData {
     id: number;
     author: string;
@@ -45,9 +46,12 @@ export default function LinkedInHome() {
     ];
 
     return (
-        <main className="relative flex flex-col min-h-screen pt-0 overflow-x-hidden bg-[#eef6ff]">
-            {/* Background Effects */}
-            <BeamsBackground className="fixed inset-0 z-0 pointer-events-none" />
+        <main className="relative flex flex-col min-h-screen pt-0 overflow-x-hidden">
+            {/* Background Image */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <img src="/background_v4.png" alt="background" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-sky-300/50 mix-blend-color z-10" />
+            </div>
 
             {/* Main Content Wrapper */}
             <div className="relative z-10 w-full flex flex-col min-h-screen">

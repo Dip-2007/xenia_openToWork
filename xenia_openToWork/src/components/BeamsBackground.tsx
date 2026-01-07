@@ -168,27 +168,14 @@ export function BeamsBackground({
 
     return (
         <div
-            className={`relative w-full overflow-hidden bg-[#eef6ff] ${className || ""}`}
+            className={`relative w-full overflow-hidden ${className || ""}`}
         >
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 pointer-events-none"
             />
 
-            <motion.div
-                className="absolute inset-0 bg-white/5 pointer-events-none"
-                animate={{
-                    opacity: [0.05, 0.1, 0.05],
-                }}
-                transition={{
-                    duration: 10,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                }}
-                style={{
-                    backdropFilter: "blur(40px)",
-                }}
-            />
+
 
             <div className="relative z-10 w-full">
                 {children}

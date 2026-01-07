@@ -4,7 +4,7 @@ import { MapPin, Users, Building, FileText, ChevronLeft, Calendar, Stamp, Sparkl
 
 // Minimal Nav
 const NavBar: React.FC<{ onBack: () => void; cartCount: number; theme: 'dark' | 'light' }> = ({ onBack, cartCount, theme }) => (
-  <div className={`fixed top-0 left-0 right-0 z-50 h-20 px-6 md:px-12 flex items-center justify-between ${theme === 'dark' ? 'text-white mix-blend-difference' : 'text-slate-900 bg-white/80 backdrop-blur-md'}`}>
+  <div className={`fixed top-0 left-0 right-0 z-50 h-20 px-6 md:px-12 flex items-center justify-between ${theme === 'dark' ? 'text-white mix-blend-difference' : 'text-slate-900 bg-white/40 backdrop-blur-xl'}`}>
     <button onClick={onBack} className="flex items-center gap-3 group">
       <div className="p-2 rounded-full border border-current group-hover:scale-90 transition-transform">
         <ChevronLeft size={16} />
@@ -35,8 +35,7 @@ const EditorialHero: React.FC<{
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
   return (
-    <div className="relative pt-32 pb-16 px-6 md:px-12 w-full bg-[#f0f7ff] text-slate-900 border-b border-blue-100 overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%)' }}>
+    <div className="relative pt-32 pb-16 px-6 md:px-12 w-full bg-white/40 backdrop-blur-md text-slate-900 border-b border-blue-100/50 overflow-hidden">
       <motion.div style={{ y }} className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-wrap gap-4 mb-8">
           {tags.map((tag, i) => (
@@ -66,8 +65,8 @@ const EditorialHero: React.FC<{
 
 // Clean Info Grid
 const InfoGrid: React.FC<{ items: { label: string; value: string; icon: React.ReactNode }[] }> = ({ items }) => (
-  <div className="border-b border-blue-100 bg-[#f8faff]">
-    <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-100">
+  <div className="border-b border-blue-100/50 bg-white/60 backdrop-blur-sm">
+    <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-100/50">
       {items.map((item, i) => (
         <div key={i} className="p-6 md:p-8 hover:bg-slate-50 transition-colors group">
           <div className="text-slate-400 mb-4 group-hover:text-black transition-colors">{item.icon}</div>
@@ -92,9 +91,15 @@ export const EventC2C: React.FC<{
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-[#eef6ff] overflow-y-auto no-scrollbar selection:bg-blue-200 selection:text-slate-900"
+      className="fixed inset-0 z-50 bg-white/30 backdrop-blur-xl overflow-y-auto no-scrollbar selection:bg-blue-200 selection:text-slate-900"
       ref={containerRef}
     >
+      {/* Global Background */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
+        <img src="/background_v4.png" alt="background" className="w-full h-full object-cover opacity-60" />
+        <div className="absolute inset-0 bg-sky-300/50 mix-blend-color z-10" />
+      </div>
+
       <NavBar onBack={onBack} cartCount={cartCount} theme="light" />
 
       <EditorialHero
@@ -197,9 +202,14 @@ export const EventIdeathon: React.FC<{
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-[#f5f3ff] overflow-y-auto no-scrollbar selection:bg-purple-200 selection:text-purple-900"
+      className="fixed inset-0 z-50 bg-white/30 backdrop-blur-xl overflow-y-auto no-scrollbar selection:bg-purple-200 selection:text-purple-900"
       ref={containerRef}
     >
+      {/* Global Background */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
+        <img src="/background_v4.png" alt="background" className="w-full h-full object-cover opacity-60" />
+      </div>
+
       <NavBar onBack={onBack} cartCount={cartCount} theme="light" />
 
       <EditorialHero
