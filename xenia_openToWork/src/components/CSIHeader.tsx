@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 const CSIHeader: React.FC<{ activeTab?: string; onTabChange?: (tab: string) => void }> = ({ activeTab, onTabChange }) => {
+    const router = useRouter();
     const navItems = [
         { id: 'home', label: 'Home' },
         { id: 'events', label: 'Events' },
@@ -17,9 +19,9 @@ const CSIHeader: React.FC<{ activeTab?: string; onTabChange?: (tab: string) => v
             animate={{ opacity: 1, y: 0 }}
             className="w-full h-16 flex items-center px-6 md:px-12 gap-4 md:gap-8 relative overflow-hidden"
             style={{
-                background: 'linear-gradient(90deg, #334155 0%, #2563eb 50%, #60a5fa 100%)', // Slate-700 -> Blue-600 -> Blue-400
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)'
+                background: '#0077b5', // Classic LinkedIn Blue
+                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
             }}
         >
             {/* Background Texture/Shine */}
@@ -65,8 +67,11 @@ const CSIHeader: React.FC<{ activeTab?: string; onTabChange?: (tab: string) => v
             </div>
 
             {/* Decorative element - Right Side Buttons */}
-            <div className="hidden xl:flex items-center gap-3 relative z-10 ml-auto">
-                <button className="px-5 py-2 rounded-full bg-white/10 text-white border border-white/20 text-xs font-black uppercase tracking-wider hover:bg-white/20 transition-colors shadow-sm backdrop-blur-sm">
+            <div className="hidden md:flex items-center gap-3 relative z-10 ml-auto">
+                <button
+                    onClick={() => router.push('/login')}
+                    className="px-5 py-2 rounded-full bg-white/10 text-white border border-white/20 text-xs font-black uppercase tracking-wider hover:bg-white/20 transition-colors shadow-sm backdrop-blur-sm cursor-pointer"
+                >
                     Login
                 </button>
                 <div className="w-px h-8 bg-blue-200 mx-1" />

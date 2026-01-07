@@ -3,36 +3,25 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useDragControls, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Briefcase, FolderOpen, Star, FileText, CheckCircle2, ShoppingCart } from 'lucide-react';
-import { EventC2C, EventIdeathon } from './EventPages';
+import { EventC2C, EventIdeathon, GenericEventPage } from './EventPages';
 import { BeamsBackground } from './BeamsBackground';
+import { events } from '../data/events';
 
-const EventsPage: React.FC = () => {
+interface EventsPageProps {
+  cart: string[];
+  addToCart: (id: string) => void;
+  removeFromCart: (id: string) => void;
+}
+
+const EventsPage: React.FC<EventsPageProps> = ({ cart, addToCart, removeFromCart }) => {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [activeDrop, setActiveDrop] = useState(false);
-  const [cart, setCart] = useState<string[]>([]);
 
-  const addToCart = (id: string) => {
-    if (!cart.includes(id)) {
-      setCart([...cart, id]);
-    }
-  };
-
-  const removeFromCart = (id: string) => {
-    setCart(cart.filter(item => item !== id));
-  };
-
-  // 9 Dossier Data points
-  const dossiers = [
-    { id: 'c2c', title: 'Campus to Corporate', org: 'HR Dept. / PCSB', type: 'Interview Sim', status: 'High Priority', color: 'blue' },
-    { id: 'ideathon', title: 'Innova-X Ideathon', org: 'R&D Division', type: 'Innovation Hack', status: 'Open for Bids', color: 'purple' },
-    { id: 'datacup', title: 'Data Cup 2026', org: 'Analytics Wing', type: 'Competition', status: 'Classified', color: 'amber', locked: true },
-    { id: 'codex', title: 'Codex Hack', org: 'Cyber Security Unit', type: 'Security Sprint', status: 'Active', color: 'blue' },
-    { id: 'uiforge', title: 'UI/UX Forge', org: 'Design Lab', type: 'Design Sprint', status: 'In Review', color: 'purple' },
-    { id: 'ainexus', title: 'AI Nexus', org: 'Neural Labs', type: 'Machine Learning', status: 'Experimental', color: 'blue' },
-    { id: 'web3warp', title: 'Web3 Warp', org: 'Blockchain Node', type: 'Protocol Hack', status: 'Open Source', color: 'purple' },
-    { id: 'datapulse', title: 'Data Pulse', org: 'Insights Div', type: 'Big Data', status: 'Live', color: 'amber' },
-    { id: 'realitylab', title: 'Reality Lab', org: 'XR Division', type: 'VR/AR', status: 'Immersive', color: 'blue' },
-  ];
+  // 9 Dossier Data points (Mapped from shared source)
+  const dossiers = events.map(e => ({
+    ...e,
+    // Map shared data fields to component specific fields if names differ, matches mostly
+  }));
 
   const rotation = useMotionValue(0);
   const springRotation = useSpring(rotation, { damping: 40, stiffness: 200 });
@@ -62,6 +51,17 @@ const EventsPage: React.FC = () => {
       onBack={() => setSelectedEvent(null)}
       isInCart={cart.includes('ideathon')}
       onToggleCart={() => cart.includes('ideathon') ? removeFromCart('ideathon') : addToCart('ideathon')}
+      cartCount={cart.length}
+    />
+  );
+
+  const selectedEventData = dossiers.find(e => e.id === selectedEvent);
+  if (selectedEvent && selectedEventData) return (
+    <GenericEventPage
+      event={selectedEventData}
+      onBack={() => setSelectedEvent(null)}
+      isInCart={cart.includes(selectedEvent)}
+      onToggleCart={() => cart.includes(selectedEvent) ? removeFromCart(selectedEvent) : addToCart(selectedEvent)}
       cartCount={cart.length}
     />
   );
@@ -234,7 +234,7 @@ const CircularDossierWrapper: React.FC<{
         opacity,
         zIndex: useTransform(zIndex, Math.round),
       }}
-      className="shrink-0"
+      className="shrink-0 pointer-events-auto"
     >
       <div className="dossier-card">
         <ProjectDossier

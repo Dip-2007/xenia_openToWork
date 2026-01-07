@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import ParticleCard from './MagicBento';
 
 interface PostProps {
     author: string;
@@ -11,11 +10,10 @@ interface PostProps {
     comments: number;
     onClick?: () => void;
 }
-
 const Post: React.FC<PostProps> = ({ author, time, content, likes, comments, onClick }) => {
     return (
         <div className="w-full relative px-0 mb-6">
-            <ParticleCard
+            <div
                 className={`bg-white/95 backdrop-blur-sm rounded-[20px] transition-all duration-300 relative overflow-hidden z-10 border border-white/60 shadow-xl ${onClick ? 'cursor-pointer hover:bg-white' : 'cursor-default'}`}
                 style={{
                     padding: '24px',
@@ -23,9 +21,6 @@ const Post: React.FC<PostProps> = ({ author, time, content, likes, comments, onC
                     background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
                     boxShadow: '0 8px 32px -4px rgba(59, 130, 246, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
                 }}
-                glowColor="0, 119, 181"
-                particleCount={2}
-                clickEffect={!!onClick}
                 onClick={onClick}
             >
                 {/* Physical Texture Overlay */}
@@ -100,7 +95,7 @@ const Post: React.FC<PostProps> = ({ author, time, content, likes, comments, onC
                         </div>
                     )}
                 </div>
-            </ParticleCard>
+            </div>
         </div>
     );
 };

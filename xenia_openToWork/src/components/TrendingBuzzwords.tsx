@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Book, AlertCircle, FileText } from 'lucide-react';
-import ParticleCard from './MagicBento';
 
 const TrendingBuzzwords = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +19,7 @@ const TrendingBuzzwords = () => {
                 animate={{ rotateY: isOpen ? -10 : 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <ParticleCard
+                <div
                     className="rulebook-panel"
                     style={{
                         position: 'relative',
@@ -38,8 +37,6 @@ const TrendingBuzzwords = () => {
                         padding: '0',
                         minHeight: '340px'
                     }}
-                    glowColor="59, 130, 246"
-                    particleCount={3}
                 >
                     {/* Spine / Binding (Always Visible) */}
                     <div style={{
@@ -140,7 +137,7 @@ const TrendingBuzzwords = () => {
                             }}
                         />
                     </motion.div>
-                </ParticleCard>
+                </div>
             </motion.div>
         </div>
     );

@@ -2,11 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Calendar, Briefcase, Bell, Menu } from 'lucide-react';
+import { Home, Calendar, Briefcase, Bell, Menu, ShoppingCart } from 'lucide-react';
 import HomePage from './HomePage';
 import EventsPage from './EventsPage';
 import CSIHeader from './CSIHeader';
+import CheckoutPage from './CheckoutPage';
 import { BeamsBackground } from './BeamsBackground';
+
 
 
 interface PostData {
@@ -20,6 +22,17 @@ interface PostData {
 
 export default function LinkedInHome() {
     const [activeTab, setActiveTab] = useState<string>('home');
+    const [cart, setCart] = useState<string[]>([]);
+
+    const addToCart = (id: string) => {
+        if (!cart.includes(id)) {
+            setCart([...cart, id]);
+        }
+    };
+
+    const removeFromCart = (id: string) => {
+        setCart(cart.filter(item => item !== id));
+    };
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);
@@ -46,7 +59,25 @@ export default function LinkedInHome() {
     ];
 
     return (
+
         <main className="relative flex flex-col min-h-screen pt-0 overflow-x-hidden">
+            {/* Global Cart Indicator (Floating) if not on checkout */}
+            {activeTab !== 'checkout' && cart.length > 0 && (
+                <div
+                    onClick={() => handleTabChange('checkout')}
+                    className="fixed bottom-8 right-8 z-[100] bg-black text-white p-4 rounded-full shadow-2xl cursor-pointer hover:scale-110 transition-transform group"
+                >
+                    <ShoppingCart size={24} />
+                    <span className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white">
+                        {cart.length}
+                    </span>
+                    <span className="absolute right-full mr-4 bg-white/90 text-slate-900 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none backdrop-blur-sm shadow-sm">
+                        Proceed to Checkout
+                    </span>
+                </div>
+            )}
+
+
             {/* Background Image */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <img src="/background_v4.png" alt="background" className="w-full h-full object-cover" />
@@ -68,7 +99,23 @@ export default function LinkedInHome() {
                             <HomePage key="home" />
                         )}
                         {activeTab === 'events' && (
-                            <EventsPage key="events" />
+                            <EventsPage
+                                key="events"
+                                cart={cart}
+                                addToCart={addToCart}
+                                removeFromCart={removeFromCart}
+                            />
+                        )}
+                        {activeTab === 'checkout' && (
+                            <CheckoutPage
+                                key="checkout"
+                                cart={cart}
+                                removeFromCart={removeFromCart}
+                                onCheckoutComplete={() => {
+                                    setCart([]);
+                                    handleTabChange('home');
+                                }}
+                            />
                         )}
                         {activeTab === 'jobs' && (
                             <section key="jobs" className="w-full min-h-[60vh] flex items-center justify-center">

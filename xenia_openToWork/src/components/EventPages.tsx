@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, Users, Building, FileText, ChevronLeft, Calendar, Stamp, Sparkles, PenTool, ArrowRight, Download, ShoppingCart, Check, CheckCircle2, X } from 'lucide-react';
+import { MapPin, Users, Building, FileText, ChevronLeft, Calendar, Stamp, Sparkles, PenTool, ArrowRight, Download, ShoppingCart, Check, CheckCircle2, X, Lock } from 'lucide-react';
 
 // Minimal Nav
 const NavBar: React.FC<{ onBack: () => void; cartCount: number; theme: 'dark' | 'light' }> = ({ onBack, cartCount, theme }) => (
@@ -298,6 +298,115 @@ export const EventIdeathon: React.FC<{
               <span className="flex items-center gap-2"><CheckCircle2 size={16} /> Registered</span>
             ) : (
               <span className="flex items-center gap-2">Start a Team <ArrowRight size={16} /></span>
+            )}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Generic Event Page for all other events
+export const GenericEventPage: React.FC<{
+  event: any;
+  onBack: () => void;
+  isInCart: boolean;
+  onToggleCart: () => void;
+  cartCount: number;
+}> = ({ event, onBack, isInCart, onToggleCart, cartCount }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Determine theme color based on event color
+  const themeColor = event.color === 'purple' ? 'text-purple-600' : event.color === 'amber' ? 'text-amber-600' : 'text-blue-600';
+  const btnColor = event.color === 'purple' ? 'bg-purple-600' : event.color === 'amber' ? 'bg-amber-600' : 'bg-blue-600';
+  const shadowColor = event.color === 'purple' ? 'shadow-purple-600/20' : event.color === 'amber' ? 'shadow-amber-600/20' : 'shadow-blue-600/20';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 bg-white/30 backdrop-blur-xl overflow-y-auto no-scrollbar selection:bg-slate-200 selection:text-slate-900"
+      ref={containerRef}
+    >
+      {/* Global Background */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
+        <img src="/background_v4.png" alt="background" className="w-full h-full object-cover opacity-60" />
+      </div>
+
+      <NavBar onBack={onBack} cartCount={cartCount} theme="light" />
+
+      <EditorialHero
+        title={event.title}
+        subtitle={event.description || "A cutting-edge initiative by the Technical Cell."}
+        tags={[event.type, event.status, "PCSB 2026"]}
+        scrollRef={containerRef}
+      />
+
+      <InfoGrid items={[
+        { label: "Organizer", value: event.org, icon: <Building /> },
+        { label: "Status", value: event.status, icon: <CheckCircle2 /> },
+        { label: "Type", value: event.type, icon: <FileText /> },
+        { label: "Fees", value: `₹${event.price}`, icon: <Sparkles /> },
+      ]} />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+          <div className="space-y-8 sticky top-32 h-fit order-2 md:order-1">
+            <div className="p-8 bg-white/80 backdrop-blur-xl border border-slate-200 shadow-lg rounded-xl">
+              <h3 className="text-xl font-bold text-slate-800 mb-4">Event Details</h3>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Join us for {event.title}, a premier event organized by {event.org}.
+                This event is designed to challenge your skills in {event.type} and provide a platform for growth.
+              </p>
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest">
+                <div className={`w-3 h-3 rounded-full ${btnColor}`} />
+                {event.status}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-12 order-1 md:order-2">
+            <section>
+              <h2 className={`text-3xl font-bold text-slate-900 border-b-4 pb-4 mb-6 w-fit ${event.color === 'purple' ? 'border-purple-600' : event.color === 'amber' ? 'border-amber-600' : 'border-blue-600'}`}>
+                Overview
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                Participants will engage in high-level problem solving and networking.
+                Secure your spot now to participate in this exclusive dimension.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky Action Bar */}
+      <div className="sticky bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 p-6 z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Registration Fee</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-3xl font-black text-slate-900">₹{event.price}</span>
+              <span className="text-sm font-medium text-slate-500">/ entry</span>
+            </div>
+          </div>
+          <button
+            onClick={onToggleCart}
+            disabled={event.locked}
+            className={`px-10 py-4 font-bold text-sm uppercase tracking-[0.2em] transition-all hover:-translate-y-1 
+              ${isInCart
+                ? 'bg-green-600 text-white shadow-lg shadow-green-600/20'
+                : event.locked
+                  ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-slate-800 shadow-xl shadow-black/10'
+              }`}
+          >
+            {isInCart ? (
+              <span className="flex items-center gap-2"><CheckCircle2 size={16} /> Added</span>
+            ) : event.locked ? (
+              <span className="flex items-center gap-2">Locked <Lock size={16} /></span>
+            ) : (
+              <span className="flex items-center gap-2">Register <ArrowRight size={16} /></span>
             )}
           </button>
         </div>

@@ -3,21 +3,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Zap, Code, Database, Sparkles, Layers } from 'lucide-react';
-import ParticleCard from './MagicBento';
 import TrueFocus from './TrueFocus';
 
 const WelcomeBanner = () => {
     return (
         <div className="w-full relative mb-8">
-            <ParticleCard
+            <div
                 className="welcome-banner bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 transition-all duration-300 relative overflow-hidden z-10 shadow-2xl"
                 style={{
                     minHeight: '200px',
                     background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
                     boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
                 }}
-                glowColor="59, 130, 246"
-                particleCount={6}
             >
                 {/* Physical Texture Overlay */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/clean-gray-paper.png')]" />
@@ -125,7 +122,7 @@ const WelcomeBanner = () => {
                         </motion.div>
                     </div>
                 </div>
-            </ParticleCard>
+            </div>
         </div>
     );
 };

@@ -1,16 +1,13 @@
 'use client';
 
 import React from 'react';
-import ParticleCard from './MagicBento';
 
 
 export const CorporateLadderWidget: React.FC = () => {
     return (
         <div className="w-full relative mb-6">
-            <ParticleCard
+            <div
                 className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 p-5 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl"
-                glowColor="0, 119, 181"
-                particleCount={4}
                 style={{
                     background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
                     boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
@@ -57,7 +54,7 @@ export const CorporateLadderWidget: React.FC = () => {
                     <span>Associate</span>
                     <span>Exec</span>
                 </div>
-            </ParticleCard>
+            </div>
         </div>
     );
 };
@@ -71,10 +68,8 @@ export const TyporateWidget: React.FC = () => {
 
     return (
         <div className="w-full relative mb-6">
-            <ParticleCard
+            <div
                 className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 p-0 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl"
-                glowColor="0, 119, 181"
-                particleCount={2}
                 style={{
                     background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
                     boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
@@ -105,21 +100,19 @@ export const TyporateWidget: React.FC = () => {
                         </div>
                     ))}
                 </div>
-            </ParticleCard>
+            </div>
         </div>
     );
 };
 
 export const PremiumWidget: React.FC = () => {
     return (
-        <ParticleCard
+        <div
             className="bg-zinc-900 rounded-xl p-0 relative overflow-hidden text-white border border-white/10 group mb-5 transition-all duration-300"
             style={{
                 background: 'radial-gradient(circle at 50% 50%, #2d2d2d 0%, #000000 100%)',
                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 10px 30px -5px rgba(0,0,0,0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)'
             }}
-            glowColor="255, 215, 0"
-            particleCount={15}
         >
             {/* Holographic Sheen Animation */}
             <div className="absolute inset-0 z-0 opacity-40 bg-[linear-gradient(115deg,transparent_40%,rgba(255,255,255,0.1)_45%,rgba(255,255,255,0.5)_50%,rgba(255,255,255,0.1)_55%,transparent_60%)] bg-[length:250%_100%] animate-[shimmer_3s_infinite_linear]" />
@@ -160,7 +153,7 @@ export const PremiumWidget: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </ParticleCard>
+        </div>
     );
 };
 
