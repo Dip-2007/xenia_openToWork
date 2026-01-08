@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useDragControls, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Briefcase, FolderOpen, Star, FileText, CheckCircle2, ShoppingCart } from 'lucide-react';
+import { Briefcase, FolderOpen, Star, FileText, CheckCircle2, ShoppingCart, ChevronLeft } from 'lucide-react';
 import { EventC2C, EventIdeathon, GenericEventPage } from './EventPages';
 import { BeamsBackground } from './BeamsBackground';
 import { events } from '../data/events';
@@ -11,9 +11,10 @@ interface EventsPageProps {
   cart: string[];
   addToCart: (id: string) => void;
   removeFromCart: (id: string) => void;
+  onBack?: () => void;
 }
 
-const EventsPage: React.FC<EventsPageProps> = ({ cart, addToCart, removeFromCart }) => {
+const EventsPage: React.FC<EventsPageProps> = ({ cart, addToCart, removeFromCart, onBack }) => {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [activeDrop, setActiveDrop] = useState(false);
 
@@ -98,6 +99,19 @@ const EventsPage: React.FC<EventsPageProps> = ({ cart, addToCart, removeFromCart
         {/* LEFT SIDE: Title */}
         <div className="w-4/12 flex flex-col justify-center gap-6 pl-8 flex-shrink-0 z-20 pointer-events-none">
           <div className="pointer-events-auto">
+            {/* Back Button */}
+            {onBack && (
+              <button
+                onClick={onBack}
+                className="mb-8 flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors font-bold text-xs uppercase tracking-wider group"
+              >
+                <div className="p-1.5 rounded-full border border-slate-300 group-hover:border-slate-800 transition-colors">
+                  <ChevronLeft size={14} />
+                </div>
+                Back to Home
+              </button>
+            )}
+
             <div className="mb-6 flex items-center gap-2 px-4 py-2 w-fit bg-blue-50/70 backdrop-blur-xl rounded-full border border-blue-100 shadow-sm">
               <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_6px_rgba(59,130,246,0.4)]" />
               <span className="text-xs font-bold text-blue-700 uppercase tracking-wide">Status: Reviewing</span>

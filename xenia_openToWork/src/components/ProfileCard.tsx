@@ -16,10 +16,10 @@ const ProfileCard: React.FC = () => {
         <>
             <div className="w-full relative mb-6">
                 <div
-                    className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 transition-all duration-300 relative overflow-hidden z-10 shadow-2xl"
+                    className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-blue-200/60 transition-all duration-300 relative overflow-hidden z-10 shadow-2xl group hover:shadow-blue-500/20 hover:border-blue-400/50"
                     style={{
-                        background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
-                        boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
+                        background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.99) 100%)',
+                        boxShadow: '0 15px 50px -5px rgba(59, 130, 246, 0.25), 0 10px 20px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.9)'
                     }}
                 >
                     {/* Physical Texture Overlay */}
@@ -56,7 +56,7 @@ const ProfileCard: React.FC = () => {
                             </div>
 
                             {/* Status Badge */}
-                            <div className={`absolute -bottom-1 -right-1 ${isGuest ? 'bg-slate-500' : 'bg-green-500'} text-white p-1 rounded-lg shadow-lg border-2 border-white flex items-center gap-1`}>
+                            <div className={`absolute -bottom-1 -right-1 ${isGuest ? 'bg-slate-500' : 'bg-green-500 shadow-green-500/50'} text-white p-1 rounded-lg shadow-lg border-2 border-white flex items-center gap-1 ${!isGuest ? 'animate-pulse' : ''}`}>
                                 <Zap size={8} fill="currentColor" />
                                 <span className="text-[7px] font-bold uppercase">{isGuest ? 'OFFLINE' : 'ONLINE'}</span>
                             </div>

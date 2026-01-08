@@ -10,9 +10,10 @@ interface CheckoutPageProps {
   cart: string[];
   removeFromCart: (id: string) => void;
   onCheckoutComplete?: () => void;
+  onBack: () => void;
 }
 
-export default function CheckoutPage({ cart, removeFromCart, onCheckoutComplete }: CheckoutPageProps) {
+export default function CheckoutPage({ cart, removeFromCart, onCheckoutComplete, onBack }: CheckoutPageProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { addEvent } = useUser();
@@ -89,15 +90,32 @@ export default function CheckoutPage({ cart, removeFromCart, onCheckoutComplete 
           <Sparkles size={32} className="text-slate-300" />
         </div>
         <h2 className="text-2xl font-bold text-slate-700 mb-2">Neural Link Empty</h2>
-        <p className="text-slate-500 max-w-md">
+        <p className="text-slate-500 max-w-md mb-8">
           No protocols selected. Return to the event dossiers to initiate selection.
         </p>
+        <button
+          onClick={onBack}
+          className="px-6 py-2 bg-slate-800 text-white rounded-full font-bold text-sm hover:bg-black transition-colors"
+        >
+          Return to Dossiers
+        </button>
       </div>
     );
   }
 
   return (
     <div className="w-full max-w-6xl mx-auto p-6 md:p-12 pb-24">
+      {/* Back Button */}
+      <button
+        onClick={onBack}
+        className="mb-8 flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors font-bold text-sm uppercase tracking-wider group"
+      >
+        <div className="p-1 rounded-full border border-slate-300 group-hover:border-slate-800 transition-colors">
+          <ArrowRight size={14} className="rotate-180" />
+        </div>
+        Back to Events
+      </button>
+
       <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-8 tracking-tight">
         Secure <span className="text-blue-600">Checkout</span>
       </h1>

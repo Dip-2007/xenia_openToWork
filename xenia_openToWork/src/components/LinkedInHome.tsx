@@ -104,6 +104,7 @@ export default function LinkedInHome() {
                                 cart={cart}
                                 addToCart={addToCart}
                                 removeFromCart={removeFromCart}
+                                onBack={() => handleTabChange('home')}
                             />
                         )}
                         {activeTab === 'checkout' && (
@@ -115,6 +116,7 @@ export default function LinkedInHome() {
                                     setCart([]);
                                     handleTabChange('home');
                                 }}
+                                onBack={() => handleTabChange('events')}
                             />
                         )}
                         {activeTab === 'jobs' && (

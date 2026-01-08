@@ -7,10 +7,10 @@ export const CorporateLadderWidget: React.FC = () => {
     return (
         <div className="w-full relative mb-6">
             <div
-                className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 p-5 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl"
+                className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-blue-200/60 p-5 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl group hover:shadow-blue-500/20 hover:border-blue-400/50"
                 style={{
-                    background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
-                    boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
+                    background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.99) 100%)',
+                    boxShadow: '0 15px 50px -5px rgba(59, 130, 246, 0.25), 0 10px 20px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.9)'
                 }}
             >
 
@@ -69,10 +69,10 @@ export const TyporateWidget: React.FC = () => {
     return (
         <div className="w-full relative mb-6">
             <div
-                className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 p-0 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl"
+                className="bg-white/95 backdrop-blur-xl rounded-[24px] border border-blue-200/60 p-0 relative overflow-hidden transition-all duration-300 z-10 shadow-2xl group hover:shadow-blue-500/20 hover:border-blue-400/50"
                 style={{
-                    background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
-                    boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
+                    background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.99) 100%)',
+                    boxShadow: '0 15px 50px -5px rgba(59, 130, 246, 0.25), 0 10px 20px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.9)'
                 }}
             >
 

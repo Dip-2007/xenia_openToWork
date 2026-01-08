@@ -13,6 +13,7 @@ interface PostData {
   author: string;
   time: string;
   content: string;
+  image?: string;
   likes: number;
   comments: number;
 }
@@ -24,6 +25,7 @@ const HomePage: React.FC = () => {
       author: 'Tech Archon',
       time: '2h ago',
       content: 'Just deployed a new neural gateway for the CSI network. The latency is practically non-existent. #CSI #TechProtocol',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop',
       likes: 120,
       comments: 45
     },
@@ -32,8 +34,36 @@ const HomePage: React.FC = () => {
       author: 'Dimensional Recruiter',
       time: '4h ago',
       content: 'Looking for a Senior Reality Architect to join our team. Must have experience with multi-threaded timeline management. 🚀 #Jobs #TechFutures',
+      image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2670&auto=format&fit=crop',
       likes: 85,
       comments: 12
+    },
+    {
+      id: 3,
+      author: 'System Override',
+      time: '6h ago',
+      content: 'Late night hackathon vibes. The caffeine is flowing and the code is compiling. Who else is grinding tonight? 💻☕ #DevLife #Hackathon',
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2670&auto=format&fit=crop',
+      likes: 243,
+      comments: 56
+    },
+    {
+      id: 4,
+      author: 'Event Horizon',
+      time: '12h ago',
+      content: 'The main stage is set for the "Future of AI" summit. Can\'t wait to see what the speakers have in store for us. It\'s going to be legendary. 🎤✨ #AI #Summit',
+      image: 'https://images.unsplash.com/photo-1540575467063-178a50935339?q=80&w=2670&auto=format&fit=crop',
+      likes: 567,
+      comments: 120
+    },
+    {
+      id: 5,
+      author: 'Global Network',
+      time: '1d ago',
+      content: 'Visualizing the data streams from our latest satellite launch. The connectivity is spanning across the globe beautifully. 🌍📡 #Space #Data',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop',
+      likes: 890,
+      comments: 230
     }
   ];
 

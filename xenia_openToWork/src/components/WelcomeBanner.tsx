@@ -9,11 +9,11 @@ const WelcomeBanner = () => {
     return (
         <div className="w-full relative mb-8">
             <div
-                className="welcome-banner bg-white/95 backdrop-blur-xl rounded-[24px] border border-white/60 transition-all duration-300 relative overflow-hidden z-10 shadow-2xl"
+                className="welcome-banner bg-white/95 backdrop-blur-xl rounded-[24px] border border-blue-200/60 transition-all duration-300 relative overflow-hidden z-10 shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-400/50 group"
                 style={{
                     minHeight: '200px',
-                    background: 'linear-gradient(135deg, rgba(240, 247, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
-                    boxShadow: '0 10px 40px -5px rgba(59, 130, 246, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8)'
+                    background: 'linear-gradient(135deg, rgba(235, 245, 255, 0.95) 0%, rgba(255, 255, 255, 0.99) 100%)',
+                    boxShadow: '0 20px 60px -10px rgba(59, 130, 246, 0.3), 0 8px 24px -4px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.9)'
                 }}
             >
                 {/* Physical Texture Overlay */}

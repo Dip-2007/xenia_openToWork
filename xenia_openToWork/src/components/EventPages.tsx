@@ -3,24 +3,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { MapPin, Users, Building, FileText, ChevronLeft, Calendar, Stamp, Sparkles, PenTool, ArrowRight, Download, ShoppingCart, Check, CheckCircle2, X, Lock } from 'lucide-react';
 
 // Minimal Nav
-const NavBar: React.FC<{ onBack: () => void; cartCount: number; theme: 'dark' | 'light' }> = ({ onBack, cartCount, theme }) => (
-  <div className={`fixed top-0 left-0 right-0 z-50 h-20 px-6 md:px-12 flex items-center justify-between ${theme === 'dark' ? 'text-white mix-blend-difference' : 'text-slate-900 bg-white/40 backdrop-blur-xl'}`}>
-    <button onClick={onBack} className="flex items-center gap-3 group">
-      <div className="p-2 rounded-full border border-current group-hover:scale-90 transition-transform">
+const NavBar: React.FC<{ onBack: () => void; cartCount: number; theme: 'dark' | 'light' }> = ({ onBack, theme }) => (
+  <div className={`sticky top-0 left-0 right-0 z-[100] h-20 px-6 md:px-12 flex items-center justify-between ${theme === 'dark' ? 'text-white mix-blend-difference' : 'text-slate-900 bg-white/60 backdrop-blur-xl border-b border-white/20'}`}>
+    <button onClick={onBack} className="flex items-center gap-3 group bg-white/50 px-4 py-2 rounded-full hover:bg-white transition-all shadow-sm">
+      <div className="p-1.5 rounded-full border border-current group-hover:scale-90 transition-transform">
         <ChevronLeft size={16} />
       </div>
-      <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100">Close</span>
+      <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100">Go to Events</span>
     </button>
-    <div className="flex items-center gap-4">
-      <div className="relative group cursor-pointer">
-        <ShoppingCart size={24} className="opacity-80 group-hover:opacity-100" />
-        {cartCount > 0 && (
-          <span className="absolute -top-2 -right-2 w-5 h-5 bg-black text-white rounded-full flex items-center justify-center text-[10px] font-bold">
-            {cartCount}
-          </span>
-        )}
-      </div>
-    </div>
   </div>
 );
 
